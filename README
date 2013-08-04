@@ -1,0 +1,6 @@
+# Quadtree
+
+Simple quadtree implemented in Go with:
+- Insertion only, once a point is inserted it cannot be removed.
+- Search near points given a distance or an axis-aligned bounding box
+  (AABB).
