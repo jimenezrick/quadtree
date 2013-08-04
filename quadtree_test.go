@@ -55,7 +55,7 @@ func TestAABBIntersctsAABB(t *testing.T) {
 	}
 }
 
-var qtRoot = New(AABB{XY{0, 0}, XY{10, 10}})
+var qtRoot = New(&AABB{XY{0, 0}, XY{10, 10}})
 
 var qtInsertTests = []struct {
 	p   XY

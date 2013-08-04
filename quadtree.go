@@ -33,19 +33,19 @@ func (a *AABB) IntersectsAABB(other *AABB) bool {
 }
 
 type QuadTree struct {
-	boundary       AABB
+	boundary       *AABB
 	points         []XY
 	ul, ur, dl, dr *QuadTree
 }
 
-func (qt *QuadTree) isLeaf() bool {
-	return qt.ul == nil
-}
-
-func New(boundary AABB) *QuadTree {
+func New(boundary *AABB) *QuadTree {
 	points := make([]XY, 0, nodeCapacity)
 	qt := &QuadTree{boundary: boundary, points: points}
 	return qt
+}
+
+func (qt *QuadTree) isLeaf() bool {
+	return qt.ul == nil
 }
 
 func (qt *QuadTree) Insert(p XY) bool {
@@ -74,19 +74,19 @@ func (qt *QuadTree) split() {
 		return
 	}
 
-	boxUL := AABB{
+	boxUL := &AABB{
 		XY{qt.boundary.center.X - qt.boundary.halfDim.X/2,
 			qt.boundary.center.Y + qt.boundary.halfDim.Y/2},
 		XY{qt.boundary.halfDim.X / 2, qt.boundary.halfDim.Y / 2}}
-	boxUR := AABB{
+	boxUR := &AABB{
 		XY{qt.boundary.center.X + qt.boundary.halfDim.X/2,
 			qt.boundary.center.Y + qt.boundary.halfDim.Y/2},
 		XY{qt.boundary.halfDim.X / 2, qt.boundary.halfDim.Y / 2}}
-	boxDL := AABB{
+	boxDL := &AABB{
 		XY{qt.boundary.center.X - qt.boundary.halfDim.X/2,
 			qt.boundary.center.Y - qt.boundary.halfDim.Y/2},
 		XY{qt.boundary.halfDim.X / 2, qt.boundary.halfDim.Y / 2}}
-	boxDR := AABB{
+	boxDR := &AABB{
 		XY{qt.boundary.center.X + qt.boundary.halfDim.X/2,
 			qt.boundary.center.Y - qt.boundary.halfDim.Y/2},
 		XY{qt.boundary.halfDim.X / 2, qt.boundary.halfDim.Y / 2}}
